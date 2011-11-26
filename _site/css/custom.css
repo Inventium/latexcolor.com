@@ -1,0 +1,163 @@
+
+body { 
+  background-image: url('images/bg-dot.png');
+  background-repeat: repeat;
+}
+
+.container {
+  width: 790px;
+  border: solid 1px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+ -moz-border-radius: 5px; 
+ -webkit-border-radius: 5px; 
+ -khtml-border-radius: 5px;    
+  border-radius: 5px;
+}
+
+header {
+  border: solid;
+  border-width: 0px;
+  border-color: #333;
+  margin: 0px 0px;
+  padding: 10px 10px;
+  text-align: right;
+  background-color: #fff;
+}
+
+
+footer {
+  text-align: center;
+  border: solid;
+  border-width: 1px;
+  border: none;
+  border-color: #333;
+  margin: 0px 0px;
+  padding: 20px 20px;
+  background-color: #fff;
+}
+
+.swatch {
+  background-color: #E52B50; 
+  height: 50px; 
+  border-width: 1px; 
+  border-style: solid;
+  margin-left: -20px; 
+ -webkit-box-shadow: 5px 5px 5px #888; 
+ -moz-box-shadow: 5px 5px 5px #888; 
+  box-shadow: 5px 5px 5px #888;   
+ -moz-border-radius: 7px; 
+ -webkit-border-radius: 7px; 
+ -khtml-border-radius: 7px;    
+  border-radius: 7px;
+}
+
+table.colors {
+  background-color: rgba(0, 0, 0, 0.0976562);
+  color: #1B1818;
+  font-family: monospace;
+  outline-color: #1B1818;
+  text-shadow: #FFE 1px 1px 0px; 
+  font-size: 13pt;
+}
+  
+table th {
+  text-align: center;
+  font-size: 18px;
+}
+
+
+.latex {
+  font-family: Times, "Times New Roman", serif;	
+  letter-spacing: 1px;
+  font-size: larger;
+}
+
+.latex sup {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.85em;
+  vertical-align: 0.15em;
+  margin-left: -0.36em;
+  margin-right: -0.15em;
+}
+
+.latex sub {
+  text-transform: uppercase;
+  vertical-align: -0.5ex;
+  margin-left: -0.1667em;
+  margin-right: -0.125em;
+  font-size: 1em;
+}
+
+h1.latex  { 
+  outline-color: #1B1818;
+  text-shadow: #FFE 2px 2px 1px; 
+  font-size: 48pt;
+}
+
+div#donate-sidebar-left {
+  position: fixed;
+  background-color: #EFDECD;
+  left: 0px;
+  top: 200px;
+}
+
+div#donate-sidebar-right {
+  position: fixed;
+  /*background-color: #EFDECD;*/
+  background-color: #DEB887; 
+  padding: 10px;
+  margin-right: 5px;
+  border-width: 1px; 
+  border-style: solid;
+ -webkit-box-shadow: 5px 5px 5px #888; 
+ -moz-box-shadow: 5px 5px 5px #888; 
+  box-shadow: 5px 5px 5px #888;   
+ -moz-border-radius: 7px; 
+ -webkit-border-radius: 7px; 
+ -khtml-border-radius: 7px;    
+  border-radius: 7px;
+
+
+  right: 0px;
+  top: 160px;
+  width: 150px;
+}
+
+div.paypal-button {
+  text-align: center;
+}
+
+#links { 
+  border: solid 1px;
+}
+
+
+section#comments {
+  font-family: sans-serif;
+  border: solid;
+  border-width: 0px;
+  border-color: #333;
+  margin: 10px 0px 0px 0px;
+  padding: 10px 0px 0px 0px;
+  background-color: #fff;
+}
+
+div#disqus_thread {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 95px 0px 20px;
+  background-color: #fff;
+}
+
+
+div.doolin {
+  position: fixed;
+  bottom: 5px; 
+  right: 5px;
+}
+
+.shamrock {
+  color: #008000;
+  font-size: 110%;
+}
