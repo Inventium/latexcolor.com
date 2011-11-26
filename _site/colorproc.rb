@@ -46,12 +46,10 @@ def line_empty?(line)
 end
 
 print "<table class=\"colors\">", "\n"
-print '<tr>'
 print "<th>Swatch</th>", "\n"
 print "<th>Color name</th>", "\n"
 print "<th>Hex Triplet</th>", "\n"
 print "<th><span class=\"latex\">L<sup>a</sup>T<sub>e</sub>X</span></th>", "\n"
-print '</tr>'
 
 colors = File.open("colors.txt")
 
