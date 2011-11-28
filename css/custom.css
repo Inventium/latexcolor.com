@@ -25,6 +25,26 @@ header {
   background-color: #fff;
 }
 
+/**
+ * Add this class for a common internal
+ * framing for content sections.
+ */
+.innerbox {
+  padding: 0px 20px;
+}
+
+section#content {
+  border: none;
+  background-color: #fff;
+  margin-bottom: 0px;
+  padding-bottom: 18px;
+}
+
+section#links {
+  border: none;
+  background-color: #fff;
+  padding-bottom: 15px;
+}
 
 footer {
   text-align: center;
