@@ -86,6 +86,15 @@ table th {
   font-size: 18px;
 }
 
+td.latex-definition:hover {
+  color: #f56;
+  cursor: pointer;
+}
+
+td.latex-definition:active {
+  color: #f56;
+  cursor: pointer;
+}
 
 .latex {
   font-family: Times, "Times New Roman", serif; 
