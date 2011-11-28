@@ -92,8 +92,9 @@ colors.lines.each do |line|
     colorvalue = "#{red}, #{green}, #{blue}" 
 
 
-    latexcolor = "\\definecolor{#{colorname}}%<br />{rgb}{#{colorvalue}}"
-    print "<td class=\"latex-definition;\">", latexcolor, "</td>","\n"
+    #latexcolor = "\\definecolor{#{colorname}}%<br />{rgb}{#{colorvalue}}"
+    latexcolor = "\\definecolor{#{colorname}}{rgb}{#{colorvalue}}"
+    print "<td class=\"latex-definition\">", latexcolor, "</td>","\n"
 
 
     #print "<td class=\"latex-definition;\">\\definecolor{#{colorname}}%<br />"
