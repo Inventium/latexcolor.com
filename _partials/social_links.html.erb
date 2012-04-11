@@ -1,0 +1,22 @@
+<ul class="cf social_links">
+  <li id="twitter">
+    <a href="http://twitter.com/home?status=Check%20out%20the%20Portfolio%20Project%20-%20<%= request.url%>" >
+      <%= image_tag('twitter.png', :alt => 'Share this on twitter', :title => 'Share this on twitter') %>
+    </a>
+  </li>
+  <li id="facebook">
+    <a href="http://www.facebook.com/sharer.php?u=<%= request.url %>&amp;t=PortfolioProject" target="blank">
+      <%= image_tag('facebook.png', :alt => "Share this on facebook", :title => "Share this on facebook") %>
+    </a>
+  </li>
+  <li id="linkedin">
+    <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=<%= request.url %>&amp;title=Check%20out%20Portfolio-Project.com&amp;source=<%= request.url%>">
+      <%= image_tag('linkedin.png', :alt => "Share this on linkedin", :title => "Share this on linkedin") %>
+    </a>
+  </li>
+  <li id="gplus">
+    <!-- g:plusone size="small" annotation="none"></g:plusone -->
+    <div class="g-plusone" data-size="small" data-count="false"></div>
+  </li>
+</ul>
+
