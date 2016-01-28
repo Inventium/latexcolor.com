@@ -45,7 +45,7 @@ def line_empty?(line)
   true
 end
 
-print "<table class=\"colors\">", "\n"
+print '<table class="colors sortable">', "\n"
 print '<tr>'
 print "<th>Swatch</th>", "\n"
 print "<th>Color name</th>", "\n"
@@ -55,8 +55,8 @@ print '</tr>'
 
 colors = File.open("colors.txt")
 
-colors.lines.each do |line|
- 
+colors.each do |line|
+
 #  if line_empty?(line)
 #   puts "Empty line..."
 # end
