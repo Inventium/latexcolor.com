@@ -4,6 +4,8 @@ body {
   background-repeat: repeat;
 }
 
+.hidden { display: none; }
+
 .container {
   width: 790px;
   border: solid 1px;
@@ -189,4 +191,40 @@ div.doolin {
 .shamrock {
   color: #008000;
   font-size: 110%;
+}
+
+
+/******************* Sorting the table ********************/
+
+/* show both arrows when there's no sort set */
+#arrow,
+table.sortable th::after, th.sorttable_sorted::after, th.sorttable_sorted_reverse::after,
+th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+}
+table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
+  background: url('images/arrow-both.png') no-repeat center;
+  background-size: contain;
+}
+.clickable {
+    cursor: pointer !important;
+}
+/* hide the default sorting icons */
+#sorttable_sortfwdind{ display: none; }
+#sorttable_sortrevind{ display: none; }
+th.sorttable_nosort::after{ display: none !important; }
+table.sortable th::after, th.sorttable_sorted::after, th.sorttable_sorted_reverse::after,
+th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
+  content: " ";
+}
+/* show the custom sorting icons */
+th.sorttable_sorted::after {
+    background: url('images/arrow-down.png') no-repeat center;
+    background-size: contain;
+}
+th.sorttable_sorted_reverse::after {
+    background: url('images/arrow-up.png') no-repeat center;
+    background-size: contain;
 }

@@ -15,6 +15,9 @@
   This basically means: do what you want with it.
 */
 
+function sortcol(name) {
+    sorttable.innerSortFunction.apply(document.getElementById(name), [])
+}
 
 var stIsIE = /*@cc_on!@*/false;
 
