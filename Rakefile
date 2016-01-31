@@ -1,19 +1,16 @@
-# Touching to get some git lovin...
-
 namespace :color do
-
   targetdir = "site"
 
   desc 'Delete generated _site files'
   task :clean do
     system "rm -fR _site *~"
   end
-  
+
   desc 'Run the jekyll dev server'
   task :server do
     system "jekyll --server --auto"
   end
-  
+
   desc 'Build the pages.'
   task :compile do
     system "./colorproc.rb > _partials/colors.html.erb"
@@ -22,13 +19,9 @@ namespace :color do
     system "./erb_run.rb thank-you.html.erb > thank-you.html"
     system "./erb_run.rb about.html.erb > about.html"
   end
-
 end
 
-
-
-namespace :compass do  
-
+namespace :compass do
   desc 'Delete temporary compass files'
   task :clean do
     system "rm -fR css/*"
@@ -43,5 +36,4 @@ namespace :compass do
   task :compile => [:clean] do
     system "compass compile"
   end
-  
 end
