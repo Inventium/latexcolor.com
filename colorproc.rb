@@ -45,18 +45,31 @@ def line_empty?(line)
   true
 end
 
-print "<table class=\"colors\">", "\n"
+print '<table class="colors sortable">', "\n"
+print '<col width="15%"><col width="20%"><col width="15%"><col width="50%">'
 print '<tr>'
-print "<th>Swatch</th>", "\n"
-print "<th>Color name</th>", "\n"
-print "<th>Hex Triplet</th>", "\n"
-print "<th><span class=\"latex\">L<sup>a</sup>T<sub>e</sub>X</span></th>", "\n"
+print "<th class=\"sorttable_nosort\">Swatch</th>", "\n"
+print "<th class=\"clickable\">Color name</th>", "\n"
+
+print "<th id=\"hex\" class=\"hidden\">"    # fake column for colors
+print "<th class=\"sorttable_nosort clickable\">", "\n"
+print   "<span title='Sort by triplet' onclick='sortcol(\"hex\")'>Hex Triplet</span>", "\n"
+print   "<img id=\"arrow\" src='css/images/arrow-both.png'/>", "\n"
+['R', 'G', 'B'].each do |letter|
+  print "<span title='Sort by #{letter} value' onclick='sortcol(\"#{letter}\")'>#{letter}</span>", "\n"
+end
+print "</th>", "\n"
+
+print "<th class=\"sorttable_nosort\"><span class=\"latex\">L<sup>a</sup>T<sub>e</sub>X</span></th>", "\n"
+print "<th id=\"R\" class=\"hidden\"></th>"
+print "<th id=\"G\" class=\"hidden\"></th>"
+print "<th id=\"B\" class=\"hidden\"></th>"
 print '</tr>'
 
 colors = File.open("colors.txt")
 
-colors.lines.each do |line|
- 
+colors.each do |line|
+
 #  if line_empty?(line)
 #   puts "Empty line..."
 # end
@@ -82,6 +95,9 @@ colors.lines.each do |line|
     print "<td>", vals[0], "</td>", "\n"
     #print "<td style=\"background-color: #{vals[1]};\">", vals[1], "</td>", "\n"
     print "<td>", vals[1], "</td>", "\n"
+
+    print "<td class=\"hidden\"></td>", "\n"      # fake column for colors counterpart
+
     colorname = vals[0].gsub(/.\W.\s\(.*\/.*\)/,'').gsub(/\s/,'').downcase
 
     # Wikipedia gives these in percents, we want them in 
@@ -95,6 +111,9 @@ colors.lines.each do |line|
     #latexcolor = "\\definecolor{#{colorname}}%<br />{rgb}{#{colorvalue}}"
     latexcolor = "\\definecolor{#{colorname.tr('#','')}}{rgb}{#{colorvalue}}"
     print "<td class=\"latex-definition\">", latexcolor, "</td>","\n"
+    print "<td class=\"hidden\">#{red}</td>", "\n"
+    print "<td class=\"hidden\">#{green}</td>", "\n"
+    print "<td class=\"hidden\">#{blue}</td>", "\n"
 
 
     #print "<td class=\"latex-definition;\">\\definecolor{#{colorname}}%<br />"
