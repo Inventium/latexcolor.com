@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'shellwords'
+# require 'shellwords'
 require 'rspec'
 
 # 1. Pulled the information from wikipedia as
@@ -40,7 +40,7 @@ def table_header
   print '<tr>'
   print '<th class="sorttable_nosort">Swatch</th>', "\n"
   print '<th class="clickable">Color name</th>', "\n"
-  print '<th id="hex" class="hidden">'    # fake column for colors
+  print '<th id="hex" class="hidden">' # fake column for colors
 
   print '<th class="sorttable_nosort clickable">', "\n"
   print   "<span title='Sort by triplet' onclick='sortcol(\"hex\")'>Hex Triplet</span>", "\n"
@@ -57,35 +57,67 @@ def table_header
   print '</tr>'
 end
 
-def to_html(vals)
+def to_html(color)
   print '<tr>', "\n"
-  print "<td> <div class=\"swatch\" style=\"background-color: #{vals[1]};\"></div></td>", "\n"
-  print '<td>', vals[0], '</td>', "\n"
-  print '<td>', vals[1], '</td>', "\n"
+  print "<td> <div class=\"swatch\" style=\"background-color: #{color.triplet};\"></div></td>", "\n"
+  print '<td>', color.name, '</td>', "\n"
+  print '<td>', color.triplet, '</td>', "\n"
   print '<td class="hidden"></td>', "\n" # fake column for colors counterpart
 
-  colorname = vals[0].gsub(%r{.\W.\s\(.*\/.*\)}, '').gsub(/\s/, '').downcase
-  # Wikipedia gives these in percents, we want them in
-  # decimals between 0.0 and 1.0.
-  red = vals[2].gsub(/%/, '').to_i / 100.0
-  green = vals[3].gsub(/%/, '').to_i / 100.0
-  blue = vals[4].gsub(/%/, '').to_i / 100.0
-  colorvalue = "#{red}, #{green}, #{blue}"
+  colorname = color.name.gsub(%r{.\W.\s\(.*\/.*\)}, '').gsub(/\s/, '').downcase
+  colorvalue = "#{color.red}, #{color.green}, #{color.blue}"
   latexcolor = "\\definecolor{#{colorname.tr('#', '')}}{rgb}{#{colorvalue}}"
 
   print '<td class="latex-definition">', latexcolor, '</td>', "\n"
-  print "<td class=\"hidden\">#{red}</td>", "\n"
-  print "<td class=\"hidden\">#{green}</td>", "\n"
-  print "<td class=\"hidden\">#{blue}</td>", "\n"
+  print "<td class=\"hidden\">#{color.red}</td>", "\n"
+  print "<td class=\"hidden\">#{color.green}</td>", "\n"
+  print "<td class=\"hidden\">#{color.blue}</td>", "\n"
   print '</tr>', "\n"
 end
 
 def process(line)
   line.gsub!(/^#.*/, '') # remove comments
   return if line =~ /^\s*$/ # skip blank lines
-  _tokens = Shellwords.split(line)
-  vals = line.split("\t")
-  to_html(vals)
+  color = Color.new line
+  to_html(color)
+end
+
+class Color
+  attr_reader :vals
+
+  def initialize(line)
+    @vals = line.split "\t"
+  end
+
+  def name
+    @name ||= @vals[0]
+  end
+
+  def latex_name
+    @latex_name ||= @vals[0].gsub(%r{.\W.\s\(.*\/.*\)}, '').gsub(/\s/, '').downcase
+  end
+
+  def triplet
+    @triplet ||= @vals[1]
+  end
+
+  def red
+    @red ||= vals[2].gsub(/%/, '').to_i / 100.0
+  end
+
+  def green
+    @green ||= vals[3].gsub(/%/, '').to_i / 100.0
+  end
+
+  def blue
+    @blue ||= vals[4].gsub(/%/, '').to_i / 100.0
+  end
+
+  def to_html
+  end
+
+  def to_haml
+  end
 end
 
 # Main executable code is the following block
@@ -96,44 +128,6 @@ colors.each do |line|
 end
 print '</table>', "\n"
 colors.close
-
-class Color
-  attr_reader :vals
-
-  def initialize(line)
-    @vals = line.split "\t"
-  end
-
-  def name
-    @vals[0]
-  end
-
-  def latex_name
-    @vals[0].gsub(%r{.\W.\s\(.*\/.*\)}, '').gsub(/\s/, '').downcase
-  end
-
-  def triplet
-    @vals[1]
-  end
-
-  def red
-    @red = vals[2].gsub(/%/, '').to_i / 100.0
-  end
-
-  def green
-    @red = vals[3].gsub(/%/, '').to_i / 100.0
-  end
-
-  def blue
-    @red = vals[4].gsub(/%/, '').to_i / 100.0
-  end
-
-  def to_html
-  end
-
-  def to_haml
-  end
-end
 
 # TODO: figure out how to handle errors, for example, when
 # an empty line or incomplete line is passed in.
