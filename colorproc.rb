@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-# require 'shellwords'
 require 'rspec'
 
 # 1. Pulled the information from wikipedia as
@@ -57,31 +56,14 @@ def table_header
   print '</tr>'
 end
 
-def to_html(color)
-  print '<tr>', "\n"
-  print "<td> <div class=\"swatch\" style=\"background-color: #{color.triplet};\"></div></td>", "\n"
-  print '<td>', color.name, '</td>', "\n"
-  print '<td>', color.triplet, '</td>', "\n"
-  print '<td class="hidden"></td>', "\n" # fake column for colors counterpart
-
-  colorname = color.name.gsub(%r{.\W.\s\(.*\/.*\)}, '').gsub(/\s/, '').downcase
-  colorvalue = "#{color.red}, #{color.green}, #{color.blue}"
-  latexcolor = "\\definecolor{#{colorname.tr('#', '')}}{rgb}{#{colorvalue}}"
-
-  print '<td class="latex-definition">', latexcolor, '</td>', "\n"
-  print "<td class=\"hidden\">#{color.red}</td>", "\n"
-  print "<td class=\"hidden\">#{color.green}</td>", "\n"
-  print "<td class=\"hidden\">#{color.blue}</td>", "\n"
-  print '</tr>', "\n"
-end
-
 def process(line)
   line.gsub!(/^#.*/, '') # remove comments
   return if line =~ /^\s*$/ # skip blank lines
   color = Color.new line
-  to_html(color)
+  color.to_html
 end
 
+# TODO: rename to HtmlColorTable
 class Color
   attr_reader :vals
 
@@ -94,7 +76,7 @@ class Color
   end
 
   def latex_name
-    @latex_name ||= @vals[0].gsub(%r{.\W.\s\(.*\/.*\)}, '').gsub(/\s/, '').downcase
+    @latex_name ||= name.gsub(%r{.\W.\s\(.*\/.*\)}, '').gsub(/\s/, '').downcase
   end
 
   def triplet
@@ -113,7 +95,25 @@ class Color
     @blue ||= vals[4].gsub(/%/, '').to_i / 100.0
   end
 
+  def colorvalue
+    @colorvalue ||= "#{red}, #{green}, #{blue}"
+  end
+
+  def latex_color
+    @latex_color ||= "\\definecolor{#{latex_name.tr('#', '')}}{rgb}{#{colorvalue}}"
+  end
+
   def to_html
+    print '<tr>', "\n"
+    print "<td> <div class=\"swatch\" style=\"background-color: #{triplet};\"></div></td>", "\n"
+    print '<td>', name, '</td>', "\n"
+    print '<td>', triplet, '</td>', "\n"
+    print '<td class="hidden"></td>', "\n" # fake column for colors counterpart
+    print '<td class="latex-definition">', latex_color, '</td>', "\n"
+    print "<td class=\"hidden\">#{red}</td>", "\n"
+    print "<td class=\"hidden\">#{green}</td>", "\n"
+    print "<td class=\"hidden\">#{blue}</td>", "\n"
+    print '</tr>', "\n"
   end
 
   def to_haml
@@ -121,6 +121,7 @@ class Color
 end
 
 # Main executable code is the following block
+# TODO: move this to a script in a bin directory
 table_header
 colors = File.open('colors.txt')
 colors.each do |line|
@@ -162,5 +163,13 @@ RSpec.describe Color do
 
   describe 'blue' do
     it { expect(color.blue).to eq 0.66 }
+  end
+
+  describe 'colorvalue' do
+    it { expect(color.colorvalue).to eq '0.36, 0.54, 0.66' }
+  end
+
+  describe 'latex_color' do
+    it { expect(color.latex_color).to eq '\\definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}' }
   end
 end
