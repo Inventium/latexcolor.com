@@ -7,6 +7,7 @@ require 'erb'
 
 class QuickTemplate
   attr_reader :args, :text
+
   def initialize(file)
     @text = File.read(file)
   end

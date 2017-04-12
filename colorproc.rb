@@ -33,27 +33,29 @@ require 'rspec'
 # Blog post or standalone website for final table.
 # Check out http://jonraasch.com/
 
-print '<table class="colors sortable">', "\n"
-print '<col width="15%"><col width="20%"><col width="15%"><col width="50%">'
+def table_header
+  print '<table class="colors sortable">', "\n"
+  print '<col width="15%"><col width="20%"><col width="15%"><col width="50%">'
 
-print '<tr>'
-print '<th class="sorttable_nosort">Swatch</th>', "\n"
-print '<th class="clickable">Color name</th>', "\n"
-print '<th id="hex" class="hidden">'    # fake column for colors
+  print '<tr>'
+  print '<th class="sorttable_nosort">Swatch</th>', "\n"
+  print '<th class="clickable">Color name</th>', "\n"
+  print '<th id="hex" class="hidden">'    # fake column for colors
 
-print '<th class="sorttable_nosort clickable">', "\n"
-print   "<span title='Sort by triplet' onclick='sortcol(\"hex\")'>Hex Triplet</span>", "\n"
-print   "<img id=\"arrow\" src='css/images/arrow-both.png'/>", "\n"
-%w[R G B].each do |letter|
-  print "<span title='Sort by #{letter} value' onclick='sortcol(\"#{letter}\")'>#{letter}</span>", "\n"
+  print '<th class="sorttable_nosort clickable">', "\n"
+  print   "<span title='Sort by triplet' onclick='sortcol(\"hex\")'>Hex Triplet</span>", "\n"
+  print   "<img id=\"arrow\" src='css/images/arrow-both.png'/>", "\n"
+  %w[R G B].each do |letter|
+    print "<span title='Sort by #{letter} value' onclick='sortcol(\"#{letter}\")'>#{letter}</span>", "\n"
+  end
+  print '</th>', "\n"
+
+  print '<th class="sorttable_nosort"><span class="latex">L<sup>a</sup>T<sub>e</sub>X</span></th>', "\n"
+  print '<th id="R" class="hidden"></th>'
+  print '<th id="G" class="hidden"></th>'
+  print '<th id="B" class="hidden"></th>'
+  print '</tr>'
 end
-print '</th>', "\n"
-
-print '<th class="sorttable_nosort"><span class="latex">L<sup>a</sup>T<sub>e</sub>X</span></th>', "\n"
-print '<th id="R" class="hidden"></th>'
-print '<th id="G" class="hidden"></th>'
-print '<th id="B" class="hidden"></th>'
-print '</tr>'
 
 def to_html(vals)
   print '<tr>', "\n"
@@ -87,6 +89,7 @@ def process(line)
 end
 
 # Main executable code is the following block
+table_header
 colors = File.open('colors.txt')
 colors.each do |line|
   process(line)
