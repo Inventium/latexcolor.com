@@ -1,4 +1,6 @@
 #!/usr/bin/ruby
+# frozen_string_literal: true
+
 # Quick and dirty template processing script. It takes
 # as an argument the name of the first template script
 # and then executes it to standard output.

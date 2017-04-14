@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'rspec'
 
@@ -32,6 +33,8 @@ require 'rspec'
 # Blog post or standalone website for final table.
 # Check out http://jonraasch.com/
 
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable MethodLength
 def table_header
   print '<table class="colors sortable">', "\n"
   print '<col width="15%"><col width="20%"><col width="15%"><col width="50%">'
@@ -55,6 +58,8 @@ def table_header
   print '<th id="B" class="hidden"></th>'
   print '</tr>'
 end
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable MethodLength
 
 def process(line)
   line.gsub!(/^#.*/, '') # remove comments
@@ -63,6 +68,8 @@ def process(line)
   color.to_html
 end
 
+# Color class takes a line from tab-delimited color data
+# and produces the appropriate html output.
 # TODO: rename to HtmlColorTable
 class Color
   attr_reader :vals
@@ -103,6 +110,7 @@ class Color
     @latex_color ||= "\\definecolor{#{latex_name.tr('#', '')}}{rgb}{#{colorvalue}}"
   end
 
+  # rubocop:disable Metrics/AbcSize MethodLength
   def to_html
     print '<tr>', "\n"
     print "<td> <div class=\"swatch\" style=\"background-color: #{triplet};\"></div></td>", "\n"
@@ -115,9 +123,9 @@ class Color
     print "<td class=\"hidden\">#{blue}</td>", "\n"
     print '</tr>', "\n"
   end
+  # rubocop:enable Metrics/AbcSize MethodLength
 
-  def to_haml
-  end
+  def to_haml; end
 end
 
 # Main executable code is the following block
@@ -132,6 +140,7 @@ colors.close
 
 # TODO: figure out how to handle errors, for example, when
 # an empty line or incomplete line is passed in.
+# rubocop:disable BlockLength
 RSpec.describe Color do
   it 'instantiates' do
     line = ''
@@ -173,3 +182,4 @@ RSpec.describe Color do
     it { expect(color.latex_color).to eq '\\definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}' }
   end
 end
+# rubocop:enable BlockLength
