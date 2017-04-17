@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 namespace :color do
-  targetdir = 'site'
+  _targetdir = 'site'
 
   desc 'Delete generated _site files'
   task :clean do

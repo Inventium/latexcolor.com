@@ -63,7 +63,7 @@ end
 
 def process(line)
   line.gsub!(/^#.*/, '') # remove comments
-  return if line =~ /^\s*$/ # skip blank lines
+  return if line.match?(/^\s*$/) # skip blank lines
   color = Color.new line
   color.to_html
 end
@@ -91,15 +91,15 @@ class Color
   end
 
   def red
-    @red ||= vals[2].gsub(/%/, '').to_i / 100.0
+    @red ||= vals[2].delete('%').to_i / 100.0
   end
 
   def green
-    @green ||= vals[3].gsub(/%/, '').to_i / 100.0
+    @green ||= vals[3].delete('%').to_i / 100.0
   end
 
   def blue
-    @blue ||= vals[4].gsub(/%/, '').to_i / 100.0
+    @blue ||= vals[4].delete('%').to_i / 100.0
   end
 
   def colorvalue
