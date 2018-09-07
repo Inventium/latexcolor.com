@@ -18,9 +18,10 @@ def main():
         ColorFile.close()
 
         outputfile.write('% Input in your TEX project and use color names accoringly.\n')
-        outputfile.write('% Colors from: https://github.com/Inventium/latexcolor.com\n')
-        outputfile.write('% Usage:\n% Required Package: \\RequirePackage[usenames,dvipsnames]{xcolor}\n% Input Colors:     \\input{LatexColors.incl.tex} \n\n')
-
+        outputfile.write('% Colors from: https://github.com/Inventium/latexcolor.com\n\n')
+        outputfile.write('% Usage:\n% Required Package:\n% \\RequirePackage[usenames,dvipsnames]{xcolor}\n% Input Colors:\n% \\input{LatexColors.incl.tex} \n\n')
+        outputfile.write('% Then use the colors in your document like this: {\\color{airforceblue} This is Air Force Blue}\n\n')
+        
         for strLine in colorlines[1:]:
         
             if len(strLine.strip()) > 0:
@@ -30,7 +31,7 @@ def main():
                 colorname = unidecode.unidecode(ln[0].replace(' ', '').replace("\\'","").replace('#','No').lower())
                 colorhex  = ln[1].replace('#', '')
 
-                # \definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66} % Air Force blue #5D8AA8
+                # \definecolor{airforceblue}{HTML}{5d8aa8}
                 outputfile.write('\\definecolor{' + colorname + '}{HTML}{' + colorhex + '}	\n')
 
         outputfile.write('\\endinput')
