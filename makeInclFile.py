@@ -4,12 +4,14 @@ import sys
 import pathlib
 from pathlib import Path
 import unidecode # pip install Unidecode
-
+import re # regex
 
 # define files
 dir_path = Path(__file__).resolve().parent
 outputfile = open(dir_path/'LatexColors.incl.tex','w')
 
+#what I dont want
+bad_chars = r"[\(\)\{\}\<\>\s#'\\]"
 
 def main():
     try:   
@@ -28,7 +30,9 @@ def main():
                 ln = strLine.split('\t')
         
                 # get color name and hex
-                colorname = unidecode.unidecode(ln[0].replace(' ', '').replace("\\'","").replace('#','No').lower())
+                colorname = unidecode.unidecode(ln[0])
+                colorname = re.sub(bad_chars, '', colorname, 0, re.MULTILINE | re.IGNORECASE)
+                colorname = colorname.lower()
                 colorhex  = ln[1].replace('#', '')
 
                 # \definecolor{airforceblue}{HTML}{5d8aa8}
