@@ -10,7 +10,7 @@ namespace :color do
 
   desc 'Run the jekyll dev server'
   task :server do
-    system 'jekyll --server --auto'
+    system 'jekyll serve --watch'
   end
 
   desc 'Build the pages.'
