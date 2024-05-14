@@ -34,7 +34,7 @@ require 'rspec'
 # Check out http://jonraasch.com/
 
 # rubocop:disable Metrics/AbcSize
-# rubocop:disable MethodLength
+# rubocop:disable Metrics/MethodLength
 def table_header
   print '<table class="colors sortable">', "\n"
   print '<col width="15%"><col width="20%"><col width="15%"><col width="50%">'
@@ -59,11 +59,12 @@ def table_header
   print '</tr>'
 end
 # rubocop:enable Metrics/AbcSize
-# rubocop:enable MethodLength
+# rubocop:enable Metrics/MethodLength
 
 def process(line)
   line.gsub!(/^#.*/, '') # remove comments
   return if line.match?(/^\s*$/) # skip blank lines
+
   color = Color.new line
   color.to_html
 end
@@ -83,7 +84,7 @@ class Color
   end
 
   def latex_name
-    @latex_name ||= name.gsub(%r{.\W.\s\(.*\/.*\)}, '').gsub(/\s/, '').downcase
+    @latex_name ||= name.gsub(%r{.\W.\s\(.*/.*\)}, '').gsub(/\s/, '').downcase
   end
 
   def triplet
@@ -110,7 +111,7 @@ class Color
     @latex_color ||= "\\definecolor{#{latex_name.tr('#', '')}}{rgb}{#{colorvalue}}"
   end
 
-  # rubocop:disable Metrics/AbcSize MethodLength
+  # MethodLength
   def to_html
     print '<tr>', "\n"
     print "<td> <div class=\"swatch\" style=\"background-color: #{triplet};\"></div></td>", "\n"
@@ -123,7 +124,6 @@ class Color
     print "<td class=\"hidden\">#{blue}</td>", "\n"
     print '</tr>', "\n"
   end
-  # rubocop:enable Metrics/AbcSize MethodLength
 
   def to_haml; end
 end
@@ -140,7 +140,7 @@ colors.close
 
 # TODO: figure out how to handle errors, for example, when
 # an empty line or incomplete line is passed in.
-# rubocop:disable BlockLength
+# rubocop:disable Metrics/BlockLength
 RSpec.describe Color do
   it 'instantiates' do
     line = ''
@@ -182,4 +182,4 @@ RSpec.describe Color do
     it { expect(color.latex_color).to eq '\\definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}' }
   end
 end
-# rubocop:enable BlockLength
+# rubocop:enable Metrics/BlockLength
